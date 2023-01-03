@@ -123,7 +123,7 @@ async def calendar_callback_handler(call: CallbackQuery, state: FSMContext):
 
         finally:
             await state.update_data(throttling=False)
-            await open_calendar(state, message=call.message)
+            await open_calendar(state, call=call)
 
     elif call.data.startswith(CallbackData.YEAR):
         if call.data == CallbackData.YEAR:
