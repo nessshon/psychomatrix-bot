@@ -1,5 +1,6 @@
 import re
 import logging
+import asyncio
 
 from datetime import datetime
 
@@ -100,6 +101,7 @@ async def calendar_callback_handler(call: CallbackQuery, state: FSMContext):
         try:
             if await PsychomatrixSavedPage.is_exists(date.strftime("%d%m%Y")):
                 page = await PsychomatrixSavedPage.get(date.strftime("%d%m%Y"))
+                await asyncio.sleep(1)
 
             else:
                 psychomatrix = Psychomatrix(date)
@@ -236,6 +238,7 @@ async def text_date_message_handler(message: Message, state: FSMContext):
         try:
             if await PsychomatrixSavedPage.is_exists(date.strftime("%d%m%Y")):
                 page = await PsychomatrixSavedPage.get(date.strftime("%d%m%Y"))
+                await asyncio.sleep(1)
 
             else:
                 psychomatrix = Psychomatrix(date)
