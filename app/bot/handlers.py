@@ -96,7 +96,7 @@ async def calendar_callback_handler(call: CallbackQuery, state: FSMContext):
 
     elif call.data == CallbackData.NEXT:
         await edit_message(call.message, text="⌛️")
-        await state.update_data(throttling=True)
+        await state.update_data(throttling=True, message_id=None)
 
         try:
             if await PsychomatrixSavedPage.is_exists(date.strftime("%d%m%Y")):
@@ -123,7 +123,7 @@ async def calendar_callback_handler(call: CallbackQuery, state: FSMContext):
 
         finally:
             await state.update_data(throttling=False)
-            await open_calendar(state, call=call)
+            await open_calendar(state, message=call.message)
 
     elif call.data.startswith(CallbackData.YEAR):
         if call.data == CallbackData.YEAR:
