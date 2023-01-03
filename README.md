@@ -83,8 +83,8 @@ nano .env
 
 ### Environment variables reference
 
-| Variable        | Type | Description                                                     |
-|-----------------|------|-----------------------------------------------------------------|
-| BOT_TOKEN       | str  | Token, get it from [@BotFather](https://t.me/BotFather)         |
-| REDIS_HOST      | str  | Set "redis" if you will be using docker                         |
-| TELEGRAPH_TOKEN | str  | Get it using the create account method in the telegraph module. |
+| Variable        | Type | Description                                                                                                                                                                                         |
+|-----------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| BOT_TOKEN       | str  | Token, get it from [@BotFather](https://t.me/BotFather)                                                                                                                                             |
+| REDIS_HOST      | str  | Set "redis" if you will be using docker                                                                                                                                                             |
+| TELEGRAPH_TOKEN | str  | Get it using the create account method in the [telegraph module](https://github.com/nessshon/psychomatrix-bot/blob/2c8e9adfe9f4ec000feb152049d8d7351a4f7a5f/app/psychomatrix/telegraph/api.py#L44). |
