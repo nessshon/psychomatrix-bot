@@ -101,7 +101,7 @@ async def calendar_callback_handler(call: CallbackQuery, state: FSMContext):
         try:
             if await PsychomatrixSavedPage.is_exists(date.strftime("%d%m%Y")):
                 page = await PsychomatrixSavedPage.get(date.strftime("%d%m%Y"))
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.7)
 
             else:
                 psychomatrix = Psychomatrix(date)
