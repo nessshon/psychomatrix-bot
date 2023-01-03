@@ -1,0 +1,9 @@
+aiogram~=2.24
+aiohttp~=3.8.3
+aiosqlite~=0.18.0
+loguru~=0.6.0
+environs~=9.5.0
+pydantic~=1.10.4
+Pillow~=9.4.0
+redis~=4.4.0
+SQLAlchemy~=1.4.46

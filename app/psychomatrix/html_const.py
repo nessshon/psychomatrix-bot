@@ -1,0 +1,17 @@
+BASIC_TITLE_PAGE = 'Психоматрица «Квадрат Пифагора» для рожденных: {}'
+BASIC_CONTENT = '<br><h3>Расшифровка чисел психоматрицы</h3>'
+BASIC_CONTENT_TITLE = '<aside>{}</aside>'
+BASIC_CONTENT_TEXT = '<p>{}</p>'
+BASIC_CONTENT_ADVICE = '<b>Совет:</b><br><blockquote>{}</blockquote>'
+BASIC_CONTENT_RECOMMENDATION = '<b>Рекомендация:</b><br><blockquote>{}</blockquote>'
+
+ADDITIONAL_TITLE_PAGE = 'Расшифровка дополнительных чисел для рожденных: {}'
+ADDITIONAL_CONTENT = '<br><h3>Расшифровка дополнительных чисел психоматрицы</h3>'
+ADDITIONAL_CONTENT_TITLE = '<aside>{}</aside>'
+ADDITIONAL_CONTENT_ANNOTATION = '<blockquote>{}</blockquote>'
+ADDITIONAL_CONTENT_LEVEL = '<p><b>Уровень: {}</b></p>'
+ADDITIONAL_CONTENT_TEXT = '<p>{}</p>'
+ADDITIONAL_CONTINUE = '<br><a href="{}">Открыть расшифровку дополнительных чисел</a>'
+
+IMAGE_CONTENT = '<img src={}>'
+SOURCE_CONTENT = '<hr><br><aside>Источник информации<br><a href="https://tragos.ru/">Tragos</a></aside>'

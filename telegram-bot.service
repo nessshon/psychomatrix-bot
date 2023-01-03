@@ -1,0 +1,15 @@
+[Unit]
+Description=Psychomatrix-Bot
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/project
+ExecStart=/usr/bin/bash -c "source env/bin/activate && python -m app"
+KillMode=process
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
