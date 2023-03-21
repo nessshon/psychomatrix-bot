@@ -6,7 +6,7 @@ from datetime import datetime
 
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, ChatType
 from aiogram.utils import markdown
 
 from . import keyboards
@@ -14,7 +14,7 @@ from . import keyboards
 from .states import UserState
 from .texts import MessageText
 
-from .filters import IsPrivate
+from .filters import IsPrivate, IsGroup
 from .keyboards import CallbackData
 
 from .misc.throttling import rate_limit, waiting_previous_execution
@@ -233,7 +233,9 @@ async def text_date_message_handler(message: Message, state: FSMContext):
 
         emoji = await message.reply("⌛️")
         await state.update_data(throttling=True)
-        await delete_previous_message(message, state)
+
+        if message.chat.type == ChatType.PRIVATE:
+            await delete_previous_message(message, state)
 
         try:
             if await PsychomatrixSavedPage.is_exists(date.strftime("%d%m%Y")):
@@ -260,9 +262,13 @@ async def text_date_message_handler(message: Message, state: FSMContext):
 
         finally:
             await state.update_data(throttling=False)
-            await open_calendar(state, message=message)
+
+            if message.chat.type == ChatType.PRIVATE:
+                await open_calendar(state, message=message)
+
     else:
-        await delete_message(message)
+        if message.chat.type == ChatType.PRIVATE:
+            await delete_message(message)
 
 
 def register(dp: Dispatcher):
@@ -285,5 +291,10 @@ def register(dp: Dispatcher):
     dp.register_message_handler(
         text_date_message_handler, IsPrivate(),
         content_types="any",
+        state="*"
+    )
+    dp.register_message_handler(
+        text_date_message_handler, IsGroup(),
+        content_types="text",
         state="*"
     )
