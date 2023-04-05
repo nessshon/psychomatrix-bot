@@ -225,12 +225,18 @@ async def choose_year_callback_handler(call: CallbackQuery, state: FSMContext):
 @rate_limit(1)
 @waiting_previous_execution
 async def text_date_message_handler(message: Message, state: FSMContext):
-    def validate(value):
-        return re.fullmatch(r"^\d{2}.\d{2}.\d{4}$", value)
+    def extract_date(value):
+        try:
+            search = re.search(r"\d{1,2}\.\d{1,2}\.\d{4}", value)
+            return search.group()
+        except AttributeError:
+            ...
+        return None
 
-    if message.content_type == "text" and validate(message.text):
-        date = datetime.strptime(message.text, "%d.%m.%Y")
+    extracted_date = extract_date(message.text)
 
+    if message.content_type == "text" and extracted_date:
+        date = datetime.strptime(extracted_date, "%d.%m.%Y")
         emoji = await message.reply("⌛️")
         await state.update_data(throttling=True)
 
