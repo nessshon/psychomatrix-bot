@@ -11,20 +11,18 @@ class Calculator:
 
     def get_birth_additional_numbers(self) -> list[int]:
         date_to_string = "".join(str(n) for n in self.get_birth_numbers())
-        first_numbers = sum(map(int, date_to_string))
 
-        second_numbers = (
-            first_numbers if first_numbers < 13
-            else sum(map(int, str(first_numbers)))
-        )
-        third_numbers = (
-            first_numbers - (2 * int(str(self.date.day)[0]))
-            if self.date.year < 2000 else first_numbers + 19
-        )
-        fourth_numbers = (
-            third_numbers if third_numbers < 13
-            else sum(map(int, str(third_numbers)))
-        )
+        first_numbers = sum(map(int, date_to_string))
+        second_numbers = sum(map(int, str(first_numbers)))
+
+        if self.date.year < 2000:
+            third_numbers = first_numbers - (2 * int(str(self.date.day)[0]))
+            fourth_numbers = sum(map(int, str(third_numbers)))
+        else:
+            const = 19
+            third_numbers = first_numbers + const
+            fourth_numbers = sum(map(int, str(third_numbers)))
+            third_numbers = int(f"{const}{third_numbers}")
 
         return [first_numbers, second_numbers, third_numbers, fourth_numbers]
 
