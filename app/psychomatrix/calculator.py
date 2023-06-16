@@ -13,11 +13,18 @@ class Calculator:
         date_to_string = "".join(str(n) for n in self.get_birth_numbers())
 
         first_numbers = sum(map(int, date_to_string))
-        second_numbers = sum(map(int, str(first_numbers)))
+        second_numbers = (
+            first_numbers if first_numbers <= 11 else
+            sum(map(int, str(first_numbers)))
+        )
 
         if self.date.year < 2000:
             third_numbers = first_numbers - (2 * int(str(self.date.day)[0]))
-            fourth_numbers = sum(map(int, str(third_numbers)))
+            fourth_numbers = (
+                third_numbers if third_numbers <= 11 else
+                sum(map(int, str(third_numbers)))
+            )
+
         else:
             const = 19
             third_numbers = first_numbers + const
