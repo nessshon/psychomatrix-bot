@@ -1,21 +1,27 @@
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine, create_async_engine
-from sqlalchemy.orm import sessionmaker
-
-from . import config
+from environs import Env
+from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine, create_async_engine, async_sessionmaker
 
 
-def loader() -> tuple[AsyncEngine, sessionmaker]:
+def loader() -> tuple[AsyncEngine, async_sessionmaker]:
+    env = Env()
+    env.read_env()
+
     engine = create_async_engine(
-        f"sqlite+aiosqlite:///{config.DB_PATH}",
-        pool_pre_ping=True
+        f"mysql+aiomysql://"
+        f"{env.str('DB_USER')}:"
+        f"{env.str('DB_PASS')}@"
+        f"{env.str('DB_HOST')}:"
+        f"{env.int('DB_PORT')}/"
+        f"{env.str('DB_NAME')}",
+        pool_pre_ping=True,
     )
-    async_sessionmaker = sessionmaker(
+    sessionmaker = async_sessionmaker(
         bind=engine,
         class_=AsyncSession,
         expire_on_commit=False
     )
 
-    return engine, async_sessionmaker
+    return engine, sessionmaker
 
 
 async def run(engine: AsyncEngine):
