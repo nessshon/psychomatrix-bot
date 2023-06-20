@@ -1,7 +1,10 @@
 import logging
+import ssl
 
 import aiohttp
 import secrets
+
+import certifi
 
 from . import config
 from .types import Account, Page, Image
@@ -20,7 +23,10 @@ class Telegraph:
         data = data.copy() if data is not None else {}
         data['access_token'] = config.get_access_token()
 
-        async with aiohttp.ClientSession(trust_env=True) as session:
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
+        conn = aiohttp.TCPConnector(ssl=ssl_context)
+
+        async with aiohttp.ClientSession(connector=conn) as session:
             response = await session.post(url=self.api_url.format(
                 method=method, path=path), data=data)
             json_response = await response.json()
@@ -104,7 +110,10 @@ class Telegraph:
         form = aiohttp.FormData(quote_fields=False)
         form.add_field(secrets.token_urlsafe(8), image)
 
-        async with aiohttp.ClientSession(trust_env=True) as session:
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
+        conn = aiohttp.TCPConnector(ssl=ssl_context)
+
+        async with aiohttp.ClientSession(connector=conn) as session:
             response = await session.post(url=self.base_url.format(
                 endpoint="upload"), data=form)
             json_response = await response.json()
