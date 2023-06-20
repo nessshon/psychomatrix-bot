@@ -22,7 +22,7 @@ class Telegraph:
 
         async with aiohttp.ClientSession() as session:
             response = await session.post(url=self.api_url.format(
-                method=method, path=path), data=data)
+                method=method, path=path), data=data, ssl=False)
             json_response = await response.json()
 
             if isinstance(json_response, list):
@@ -106,7 +106,7 @@ class Telegraph:
 
         async with aiohttp.ClientSession() as session:
             response = await session.post(url=self.base_url.format(
-                endpoint="upload"), data=form)
+                endpoint="upload"), data=form, ssl=False)
             json_response = await response.json()
 
             if isinstance(json_response, list):
