@@ -10,8 +10,15 @@ services:
     restart: always
     volumes:
       - .:/usr/src/telegram-bot
+    networks:
+      - psychomatrix-network
     depends_on:
       - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   redis:
     image: redis:alpine
@@ -19,3 +26,11 @@ services:
     restart: always
     volumes:
       - ./redis/data/:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+networks:
+  psychomatrix-network:
